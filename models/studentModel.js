@@ -1,0 +1,87 @@
+const mongoose = require("mongoose");
+
+// defining a schema
+const studentSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, "please add first name"],
+  },
+  lName: {
+    type: String,
+    required: [true, "please add last name"],
+  },
+  batch: {
+    type: String,
+    default: "B51-WD Tamil",
+  },
+  contactNo: {
+    type: String,
+  },
+  email: {
+    type: String,
+    required: [true, "please add the email address"],
+    unique: [true, "email already taken"],
+  },
+  password: {
+    type: String,
+    required: [true, "please add password"],
+  },
+  resetToken: {
+    type: String,
+  },
+  qualification: {
+    type: String,
+  },
+  experience: {
+    type: String,
+  },
+  codeKata: {
+    type: String,
+    default: "0",
+  },
+  webKata: {
+    type: String,
+    default: "0",
+  },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
+  mockInterview: {
+    type: String,
+    default: "0",
+  },
+  portfolio: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Portfolio",
+    },
+  ],
+  capstone: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Capstone",
+    },
+  ],
+  webcode: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Webcode",
+    },
+  ],
+  mock: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Mock",
+    },
+  ],
+  task: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Task",
+    },
+  ],
+});
+
+// create a model
+module.exports = mongoose.model("Student", studentSchema, "students");
