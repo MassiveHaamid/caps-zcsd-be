@@ -6,9 +6,9 @@ const { EMAIL_ADDRESS, EMAIL_PASSWORD, FEURL } = require("../utils/config");
 const signupStudent = async (req, res) => {
   try {
     const {
-      email,
       name,
       lName,
+      email,
       contactNo,
       experience,
       qualification,
@@ -34,11 +34,11 @@ const signupStudent = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const student = await Student.create({
-      email,
       name,
+      lName,
+      email,
       experience,
       qualification,
-      lName,
       contactNo,
       password: hashedPassword,
       resetToken: randomString,
@@ -76,9 +76,9 @@ const signupStudent = async (req, res) => {
 const updateStudent = async (req, res) => {
   try {
     const {
-      email,
       name,
       lName,
+      email,
       contactNo,
       qualification,
       experience,
