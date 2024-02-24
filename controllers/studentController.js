@@ -1,4 +1,4 @@
-const Student = require('../models/studentModel');
+const Student = require("../models/studentModel");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const { EMAIL_ADDRESS, EMAIL_PASSWORD, FEURL } = require("../utils/config");
@@ -16,7 +16,7 @@ const signupStudent = async (req, res) => {
     } = req.body;
 
     if (!name || !email || !password) {
-      res.status(400).json({ message: "all fields are mandotary" });
+      res.status(400).json({ message: "all fields are mandatory" });
       return;
     }
 
