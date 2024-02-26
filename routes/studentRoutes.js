@@ -1,6 +1,15 @@
 const studentRouter = require("express").Router();
-const { signupStudent, updateStudent, confirmStudent, forgotPassword, resetPassword, } 
-= require("../controllers/studentController");
+const {
+  signupStudent,
+  updateStudent,
+  confirmStudent,
+  forgotPassword,
+  resetPassword,
+} = require("../controllers/studentController");
+
+//body parser
+studentRouter.use(express.urlencoded({ extended: true }));
+studentRouter.use(express.json());
 
 // sign up new student
 studentRouter.post("/student/signup", signupStudent);
