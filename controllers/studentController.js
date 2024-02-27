@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const { EMAIL_ADDRESS, EMAIL_PASSWORD, FEURL } = require("../utils/config");
 
-const signupStudent = async (req, res) => {
+const signupStudent = async (req, res, next) => {
   try {
     const {
       name,
@@ -57,11 +57,11 @@ const signupStudent = async (req, res) => {
         from: `"Haamid" <${EMAIL_ADDRESS}>`,
         to: student.email,
         subject: "Confirm account",
-        text: link,
+        text: `Please click on the following link to confirm your account: ${link}`,
       });
     };
 
-    sendMail();
+    await sendMail();
 
     res
       .status(201)

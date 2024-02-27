@@ -5,14 +5,16 @@ const { SECRET } = require("../utils/config");
 
 // Function to handle login
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
+  console.log(req.body);
   try {
     //getting email and password from student
     const { email, password } = req.body;
-
+    console.log(email);
+    console.log(password);
     // search and find the document of the student with email
     const student = await Student.findOne({ email });
-console.log('student', student);
+    console.log("student", student);
     // if student not found send error
     if (!student) {
       return res
@@ -28,17 +30,12 @@ console.log('student', student);
     }
 
     // generate JWT token
-    const studentToken = {
-      name: student.name,
-      id: student._id,
-    };
-
-    const token = jwt.sign(studentToken, SECRET, { expiresIn: 60 * 60 });
+    // const studentToken = { name: student.name, id: student._id, };
+    // const token = jwt.sign(studentToken, SECRET, { expiresIn: 60 * 60 });
+    const token = jwt.sign({ id: student._id }, SECRET, { expiresIn: "1d" });
 
     //if everything is ok send response
     res.status(200).send({ token, student });
-
-    
   } catch (error) {
     return res
       .status(400)
@@ -46,6 +43,4 @@ console.log('student', student);
   }
 };
 
-module.exports = {
-  login,
-};
+module.exports = login;

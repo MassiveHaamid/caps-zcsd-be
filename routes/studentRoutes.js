@@ -1,4 +1,5 @@
-const studentRouter = require("express").Router();
+const express = require("express");
+const studentRouter = express.Router();
 const {
   signupStudent,
   updateStudent,
@@ -25,5 +26,11 @@ studentRouter.put("/student/forgot", forgotPassword);
 
 // reseting password
 studentRouter.patch("/student/reset/:id", resetPassword);
+
+// Error handling middleware
+studentRouter.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something broke!");
+});
 
 module.exports = studentRouter;
