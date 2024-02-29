@@ -6,7 +6,7 @@ const { SECRET } = require("../utils/config");
 // Function to handle login
 
 const login = async (req, res, next) => {
-  console.log(req.body);
+  console.log(req.body.email);
   try {
     //getting email and password from student
     const { email, password } = req.body;
