@@ -2,9 +2,8 @@ const express = require("express");
 const loginController = express.Router();
 const login = require("../controllers/loginController");
 
-//body parser
-loginController.use(express.urlencoded({ extended: true }));
-loginController.use(express.json());
+var bodyParser = require("body-parser");
+loginController.use(bodyParser.urlencoded({ extended: false }));
 
 loginController.post("/student/login", (req, res) => {
   console.log(req.body.email);

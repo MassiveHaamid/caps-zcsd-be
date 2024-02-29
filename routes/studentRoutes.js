@@ -8,9 +8,8 @@ const {
   resetPassword,
 } = require("../controllers/studentController");
 
-//body parser
-studentRouter.use(express.urlencoded({ extended: true }));
-studentRouter.use(express.json());
+var bodyParser = require("body-parser");
+studentRouter.use(bodyParser.urlencoded({ extended: false }));
 
 // sign up new student
 studentRouter.post("/student/signup", signupStudent);
