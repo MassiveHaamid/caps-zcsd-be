@@ -1,19 +1,19 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
 require("dotenv").config();
-const express = require("express");
-const app = express();
-const cors = require("cors");
-const mongoose = require("mongoose");
 const { URL } = require("./utils/config");
 
-const loginRouter = require("./routes/loginRoutes");
-const studentRouter = require("./routes/studentRoutes");
+const loginRouter = require('./routes/loginRoutes');
+const studentRouter = require('./routes/studentRoutes');
+
+const app = express();
 
 // Middleware
 app.use(cors());
 
 mongoose.set("strictQuery", false);
-mongoose
-  .connect(URL)
+mongoose.connect(process.env.MONGODB_URI)
 
   .then(() => {
     console.log("connected to MongoDB");
@@ -22,9 +22,9 @@ mongoose
     console.error(err);
   });
 
-app.get("/", (req, res) => {
-  res.send("Welcome to Zen-Dashboard");
-});
+  app.get("/", (req, res) => {
+    res.send("Welcome to Zen-Dashboard");
+  });
 
 // Routes
 app.use(loginRouter);
@@ -36,12 +36,12 @@ let attendanceData = {
 };
 
 // Endpoint to get attendance data
-app.get("/api/attendance", (req, res) => {
+app.get('/api/attendance', (req, res) => {
   res.json(attendanceData);
 });
 
 // Endpoint to update attendance data
-app.post("/api/attendance", (req, res) => {
+app.post('/api/attendance', (req, res) => {
   const { presentDays, totalDays } = req.body;
 
   // Validate and update attendance data
@@ -63,12 +63,12 @@ for (let day = 1; day <= 42; day++) {
 console.log(taskScoreData);
 
 // Endpoint to get task score data
-app.get("/api/tasks", (req, res) => {
+app.get('/api/tasks', (req, res) => {
   res.json(taskScoreData);
 });
 
 // Endpoint to update task score data
-app.post("/api/tasks", (req, res) => {
+app.post('/api/tasks', (req, res) => {
   const updatedTaskScoreData = req.body;
 
   // Validate and update task score data
