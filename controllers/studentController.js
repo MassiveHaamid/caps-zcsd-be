@@ -3,7 +3,11 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const { EMAIL_ADDRESS, EMAIL_PASSWORD, FEURL } = require("../utils/config");
 
+//sign up new student
+
 const signupStudent = async (req, res, next) => {
+  //preparing object to store in collection
+
   try {
     const {
       name,
@@ -26,6 +30,8 @@ const signupStudent = async (req, res, next) => {
       return;
     }
 
+    //generating random string
+
     const randomString =
       Math.random().toString(36).substring(2, 15) +
       Math.random().toString(36).substring(2, 15);
@@ -43,6 +49,8 @@ const signupStudent = async (req, res, next) => {
       password: hashedPassword,
       resetToken: randomString,
     });
+
+    //sending email for Confirm account
 
     const transporter = nodemailer.createTransport({
       service: "gmail",

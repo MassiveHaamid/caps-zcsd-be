@@ -1,18 +1,17 @@
 const express = require("express");
-const loginController = express.Router();
-const login = require("../controllers/loginController");
+const loginRouter = express.Router();
+const { login } = require("../controllers/loginController");
 
 var bodyParser = require("body-parser");
-loginController.use(bodyParser.urlencoded({ extended: false }));
+loginRouter.use(bodyParser.urlencoded({ extended: false }));
 
-loginController.post("/student/login", (req, res) => {
-  console.log(req.body.email);
+loginRouter.post("/student/login", async (req, res, next) => {
+  try {
+    await login(req, res, next);
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ message: "Error on login, please try again" });
+  }
 });
 
-// Error handling middleware
-loginController.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-});
-
-module.exports = loginController;
+module.exports = loginRouter;
