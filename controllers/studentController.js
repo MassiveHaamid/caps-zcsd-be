@@ -5,9 +5,7 @@ const { EMAIL_ADDRESS, EMAIL_PASSWORD, FEURL } = require("../utils/config");
 
 //sign up new student
 
-const signupStudent = async (req, res, next) => {
-  //preparing object to store in collection
-
+const signupStudent = async (req, res) => {
   try {
     const {
       name,
@@ -18,40 +16,42 @@ const signupStudent = async (req, res, next) => {
       qualification,
       password,
     } = req.body;
-
+    console.log("req.body:", req.body);
+    //incase of any data missing throw error
     if (!name || !email || !password) {
-      res.status(400).json({ message: "all fields are mandatory" });
+      res.status(400).json({ message: "all fields are mandotary" });
       return;
     }
 
+    // Check if a student with the same email already exists
     const matchedStudent = await Student.findOne({ email });
     if (matchedStudent) {
       res.status(400).json({ message: "Student already exists" });
       return;
     }
 
-    //generating random string
-
+    // Generate a random token for account confirmation
     const randomString =
       Math.random().toString(36).substring(2, 15) +
       Math.random().toString(36).substring(2, 15);
     const link = `${FEURL}/confirm/${randomString}`;
 
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Create a new student document
     const student = await Student.create({
       name,
       lName,
       email,
+      contactNo,
       experience,
       qualification,
-      contactNo,
       password: hashedPassword,
       resetToken: randomString,
     });
 
-    //sending email for Confirm account
-
+    // Send confirmation email
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -69,11 +69,12 @@ const signupStudent = async (req, res, next) => {
       });
     };
 
-    await sendMail();
+    sendMail();
 
     res
       .status(201)
       .json({ message: `account created successfully ${student.name}` });
+    //
   } catch (error) {
     return res
       .status(400)

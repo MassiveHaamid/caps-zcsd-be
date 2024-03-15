@@ -13,6 +13,7 @@ studentRouter.use(bodyParser.urlencoded({ extended: false }));
 
 studentRouter.post("/student/signup", async (req, res, next) => {
   try {
+    console.log("req, res");
     await signupStudent(req, res, next);
   } catch (error) {
     console.error(error);
