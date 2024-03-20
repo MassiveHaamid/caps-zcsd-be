@@ -10,6 +10,7 @@ const studentRouter = require("./routes/studentRoutes");
 const app = express();
 
 // Middleware
+app.use(express.json());
 app.use(cors());
 
 mongoose.set("strictQuery", false);
@@ -32,8 +33,8 @@ app.use(loginRouter);
 app.use(studentRouter);
 
 let attendanceData = {
-  presentDays: 15,
-  totalDays: 20,
+  presentDays: 37,
+  totalDays: 42,
 };
 
 // Endpoint to get attendance data
@@ -79,9 +80,8 @@ app.post("/api/tasks", (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log("server is started", process.env.PORT);
 });
 
 module.exports = app;
