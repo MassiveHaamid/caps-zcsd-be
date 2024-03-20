@@ -1,4 +1,4 @@
-const loginRouter = express.Router();
+const loginRouter = require("express").Router();
 const { login } = require("../controllers/loginController.js");
 
 // var bodyParser = require("body-parser");

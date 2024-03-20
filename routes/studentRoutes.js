@@ -1,4 +1,4 @@
-const studentRouter = express.Router();
+const studentRouter = require("express").Router();
 const {
   signupStudent,
   updateStudent,

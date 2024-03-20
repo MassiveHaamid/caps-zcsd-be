@@ -5,7 +5,7 @@ const { SECRET } = require("../utils/config");
 
 // Function to handle login
 
-const login = async (req, res, next) => {
+const login = async (req, res) => {
   console.log(req.body.email);
   try {
     //getting email and password from student
@@ -30,9 +30,9 @@ const login = async (req, res, next) => {
     }
 
     // generate JWT token
-    // const studentToken = { name: student.name, id: student._id, };
-    // const token = jwt.sign(studentToken, SECRET, { expiresIn: 60 * 60 });
-    const token = jwt.sign({ id: student._id }, SECRET, { expiresIn: "1d" });
+    const studentToken = { name: student.name, id: student._id };
+    const token = jwt.sign(studentToken, SECRET, { expiresIn: 60 * 60 });
+    // const token = jwt.sign({ id: student._id }, SECRET, { expiresIn: "1d" });
 
     //if everything is ok send response
     res.status(200).send({ token, student });
@@ -43,4 +43,6 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = login;
+module.exports = {
+  login,
+};
