@@ -1,5 +1,5 @@
 const loginRouter = require("express").Router();
-const { login } = require("../controllers/loginController.js");
+const { login } = require("../controllers/login.js");
 
 // var bodyParser = require("body-parser");
 // loginRouter.use(bodyParser.urlencoded({ extended: false }));

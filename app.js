@@ -6,6 +6,9 @@ const { URL } = require("./utils/config");
 
 const loginRouter = require("./routes/loginRoutes");
 const studentRouter = require("./routes/studentRoutes");
+const capstoneRouter = require("./Routes/capstoneRoutes");
+const webcodeRouter = require("./Routes/webcodeRoutes");
+const mockRouter = require("./Routes/mockRoutes");
 
 const app = express();
 
@@ -31,6 +34,10 @@ app.get("/", (req, res) => {
 // Routes
 app.use(loginRouter);
 app.use(studentRouter);
+app.use(capstoneRouter);
+app.use(webcodeRouter);
+app.use(mockRouter);
+
 
 let attendanceData = {
   presentDays: 37,

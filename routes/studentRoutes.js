@@ -5,7 +5,7 @@ const {
   confirmStudent,
   forgotPassword,
   resetPassword,
-} = require("../controllers/studentController.js");
+} = require("../controllers/student.js");
 
 // var bodyParser = require("body-parser");
 // studentRouter.use(bodyParser.urlencoded({ extended: false }));
