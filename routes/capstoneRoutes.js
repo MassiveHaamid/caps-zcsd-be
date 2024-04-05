@@ -1,5 +1,5 @@
 const capstoneRouter = require("express").Router();
-const { fetchCapstone, postCapstone } = require("../../controllers/capstone.js");
+const { fetchCapstone, postCapstone } = require("../controllers/capstone.js");
 
 // fetching all capstone
 
