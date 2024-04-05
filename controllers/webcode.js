@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { SECRET } = require("../utils/config");
-const Student = require("../model/studentModel");
-const Webcode = require("../model/webcodeModel");
+const Student = require("../models/studentModel");
+const Webcode = require("../models/webcodeModel");
 
 //getting token function
 const getTokenFrom = (req) => {
